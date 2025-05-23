@@ -1,9 +1,18 @@
+import type { JSX } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router';
 import { DashboardLayout } from '../layouts/DashboardLayout';
 import { AssistantPage, AudioToTextPage, ImageGenerationPage, OrthographyPage, ProsConsPage, ProsConsStreamPage, TextToAudioPage, TranslatePage } from '../pages';
 import { ImageTunningPage } from '../pages/image-generation/ImageTunningPage';
 
-export const menuRoutes = [
+export type MenuItem = {
+  to: string;
+  icon: string;
+  title: string;
+  description: string;
+  component: JSX.Element;
+}
+
+export const menuRoutes: MenuItem[] = [
   {
     to: "/orthography",
     icon: "fa-solid fa-spell-check",
