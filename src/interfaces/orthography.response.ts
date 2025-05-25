@@ -10,3 +10,5 @@ export interface OrthographyResponseWithStatus {
 	errors: string[];
 	message: string;
 }
+
+export type OrthographyInfo = OrthographyResponse;

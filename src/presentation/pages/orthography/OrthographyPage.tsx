@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { orthographyUseCase } from '../../../core/use-cases'
-import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
+import { ORTHOGRAPHY_ERROR_RESPONSE, orthographyUseCase } from '../../../core/use-cases'
+import type { OrthographyInfo } from '../../../interfaces'
+import { GptMessage, GptOrthographyMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
 interface Message {
   text: string
   isGpt: boolean
+  info?: OrthographyInfo
 }
 
 export const OrthographyPage = () => {
@@ -16,13 +18,12 @@ export const OrthographyPage = () => {
 
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    // TODO: use case
     const data = await orthographyUseCase(text)
-    console.log({ data });
+
+    if (!data.ok) setMessages((prevMessages) => [...prevMessages, { text: ORTHOGRAPHY_ERROR_RESPONSE.message, isGpt: true }])
+    else setMessages((prevMessages) => [...prevMessages, { text: data.message, isGpt: true, info: data }])
 
     setIsLoading(false)
-
-    // TODO: add msg of GPT
   }
 
   return (
@@ -34,11 +35,13 @@ export const OrthographyPage = () => {
         <GptMessage text='Hola, puedes escribir tu texto en español, y te ayudo con las correciones' />
 
         {
-          messages.map((message, index) => (
-            message.isGpt
-              ? <GptMessage key={index} text={"This comes from OpenAI"} />
-              : <MyMessage key={index} text={message.text} />
-          ))
+          messages.map(
+            (message, index) => (
+              message.isGpt
+                ? <GptOrthographyMessage key={index} {...message.info!} />
+                : <MyMessage key={index} text={message.text} />
+            )
+          )
         }
 
         {

@@ -29,11 +29,13 @@ export const orthographyUseCase = async (
 	} catch (error) {
 		console.log({ error });
 
-		return {
-			ok: false,
-			userScore: 0,
-			errors: [],
-			message: 'Could not proccess the propmt',
-		};
+		return ORTHOGRAPHY_ERROR_RESPONSE;
 	}
+};
+
+export const ORTHOGRAPHY_ERROR_RESPONSE: OrthographyResponseWithStatus = {
+	ok: false,
+	userScore: 0,
+	errors: [],
+	message: 'Could not proccess the propmt',
 };
