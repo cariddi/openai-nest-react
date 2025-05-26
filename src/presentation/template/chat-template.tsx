@@ -27,7 +27,7 @@ export const ChatTemplate = () => {
       <div className='chat-messages'>
         <div className='grid grid-cols-12 gap-y-2'></div>
 
-        {/* Bienvenida */}
+        {/* Welcome */}
         <GptMessage text='Hola, puedes escribir tu texto en español, y te ayudo con las correciones' />
 
         {

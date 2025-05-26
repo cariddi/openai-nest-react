@@ -2,13 +2,14 @@ import type {
 	OrthographyResponse,
 	OrthographyResponseWithStatus,
 } from '../../interfaces';
+import { ORTHOGRAPHY_URL } from '../const/url';
 
 export const orthographyUseCase = async (
 	prompt: string
 ): Promise<OrthographyResponseWithStatus> => {
 	try {
 		const resp = await fetch(
-			`${import.meta.env.VITE_GPT_API}/orthography-check`,
+			`${import.meta.env.VITE_GPT_API}/${ORTHOGRAPHY_URL}`,
 			{
 				method: 'POST',
 				headers: {

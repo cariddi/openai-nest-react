@@ -4,11 +4,8 @@ export interface OrthographyResponse {
 	message: string;
 }
 
-export interface OrthographyResponseWithStatus {
+export interface OrthographyResponseWithStatus extends OrthographyResponse {
 	ok: boolean;
-	userScore: number;
-	errors: string[];
-	message: string;
 }
 
 export type OrthographyInfo = OrthographyResponse;
