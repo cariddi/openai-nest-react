@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { prosConsStreamUseCase } from '../../../core/use-cases'
+import { prosConsStreamGeneratorUseCase } from '../../../core/use-cases'
 import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
 interface Message {
@@ -16,26 +16,15 @@ export const ProsConsStreamPage = () => {
 
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    const reader = await prosConsStreamUseCase(text)
+    const stream = await prosConsStreamGeneratorUseCase(text)
     setIsLoading(false)
 
-    if (!reader) return alert('Could not get the stream reader')
+    setMessages((prevMessages) => [...prevMessages, { text: "", isGpt: true }])
 
-    // Generate "last" mssage
-    const decoder = new TextDecoder();
-    let message = '';
-    setMessages((prevMessages) => [...prevMessages, { text: message, isGpt: true }])
-
-    while (true) {
-      const { done, value } = await reader.read();
-
-      if (done) break;
-
-      message += decoder.decode(value, { stream: true });
-
+    for await (const chunk of stream) {
       setMessages((prevMessages) => {
         const newMessages = [...prevMessages];
-        newMessages[newMessages.length - 1].text = message;
+        newMessages[newMessages.length - 1].text = chunk;
 
         return newMessages;
       })
