@@ -1,7 +1,10 @@
 import type { ProsConsStreamResponseWithStatus } from '../../interfaces';
 import { PROS_CONS_STREAM_URL } from '../const/url';
 
-export async function* prosConsStreamGeneratorUseCase(prompt: string) {
+export async function* prosConsStreamGeneratorUseCase(
+	prompt: string,
+	abortSignal: AbortSignal
+) {
 	try {
 		const resp = await fetch(
 			`${import.meta.env.VITE_GPT_API}/${PROS_CONS_STREAM_URL}`,
@@ -11,7 +14,7 @@ export async function* prosConsStreamGeneratorUseCase(prompt: string) {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ prompt }),
-				// TODO: abort signal
+				signal: abortSignal,
 			}
 		);
 
