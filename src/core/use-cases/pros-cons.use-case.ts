@@ -26,7 +26,7 @@ export const prosConsUseCase = async (
 		return {
 			ok: true,
 			...data,
-		};
+		} satisfies ProsConsResponseWithStatus;
 	} catch (error) {
 		console.log({ error });
 

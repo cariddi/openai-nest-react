@@ -26,7 +26,7 @@ export const orthographyUseCase = async (
 		return {
 			ok: true,
 			...data,
-		};
+		} satisfies OrthographyResponseWithStatus;
 	} catch (error) {
 		console.log({ error });
 

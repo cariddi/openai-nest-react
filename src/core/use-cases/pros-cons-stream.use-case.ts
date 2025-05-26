@@ -23,17 +23,7 @@ export const prosConsStreamUseCase = async (prompt: string) => {
 			return null;
 		}
 
-		const decoder = new TextDecoder();
-		let text = '';
-
-		while (true) {
-			const { done, value } = await reader.read();
-
-			if (done) break;
-
-			text += decoder.decode(value, { stream: true });
-			console.log({ text });
-		}
+		return reader;
 	} catch (error) {
 		console.log({ error });
 

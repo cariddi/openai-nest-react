@@ -16,11 +16,30 @@ export const ProsConsStreamPage = () => {
 
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    await prosConsStreamUseCase(text)
-
+    const reader = await prosConsStreamUseCase(text)
     setIsLoading(false)
 
-    // TODO: add msg of GPT
+    if (!reader) return alert('Could not get the stream reader')
+
+    // Generate "last" mssage
+    const decoder = new TextDecoder();
+    let message = '';
+    setMessages((prevMessages) => [...prevMessages, { text: message, isGpt: true }])
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      message += decoder.decode(value, { stream: true });
+
+      setMessages((prevMessages) => {
+        const newMessages = [...prevMessages];
+        newMessages[newMessages.length - 1].text = message;
+
+        return newMessages;
+      })
+    }
   }
 
   return (
@@ -34,7 +53,7 @@ export const ProsConsStreamPage = () => {
         {
           messages.map((message, index) => (
             message.isGpt
-              ? <GptMessage key={index} text={"This comes from OpenAI"} />
+              ? <GptMessage key={index} text={message.text} />
               : <MyMessage key={index} text={message.text} />
           ))
         }
