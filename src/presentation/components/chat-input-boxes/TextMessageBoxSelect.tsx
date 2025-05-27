@@ -25,6 +25,7 @@ export const TextMessageBoxSelect: React.FC<TextMessageBoxSelectProps> = ({
     e.preventDefault()
 
     if (message.trim().length === 0) return
+    if (message.trim() === '') return
 
     onSendMessage(message, selectedOption)
     setMessage("")
