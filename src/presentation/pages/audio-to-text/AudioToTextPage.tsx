@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { audioToTextUseCase } from '../../../core/use-cases'
+import { AUDIO_TO_TEXT_ERROR_RESPONSE, audioToTextUseCase } from '../../../core/use-cases'
 import { GptMessage, MyMessage, TextMessageBoxFile, TypingLoader } from '../../components'
 
 interface Message {
@@ -14,10 +14,12 @@ export const AudioToTextPage = () => {
   const handlePost = async (text: string, audioFile: File) => {
     setIsLoading(true)
 
-    await audioToTextUseCase(audioFile, text)
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    // TODO: use case
+    const resp = await audioToTextUseCase(audioFile, text)
+
+    if (!resp.ok) setMessages((prevMessages) => [...prevMessages, { text: AUDIO_TO_TEXT_ERROR_RESPONSE.text, isGpt: true }])
+    else setMessages((prevMessages) => [...prevMessages, { text: resp.text, isGpt: true }])
 
     setIsLoading(false)
 
@@ -35,7 +37,7 @@ export const AudioToTextPage = () => {
         {
           messages.map((message, index) => (
             message.isGpt
-              ? <GptMessage key={index} text={"This comes from OpenAI"} />
+              ? <GptMessage key={index} text={message.text} />
               : <MyMessage key={index} text={message.text} />
           ))
         }
@@ -50,7 +52,12 @@ export const AudioToTextPage = () => {
 
       </div>
 
-      <TextMessageBoxFile onSendMessage={handlePost} accept='audio/*' placeholder='Type here what you need' disableCorrections />
+      <TextMessageBoxFile
+        onSendMessage={handlePost}
+        accept="audio/*"
+        placeholder='Type here what you need'
+        disableCorrections
+      />
     </div>
   )
 }
