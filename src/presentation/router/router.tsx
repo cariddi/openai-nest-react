@@ -16,64 +16,64 @@ export const menuRoutes: MenuItem[] = [
   {
     to: "/orthography",
     icon: "fa-solid fa-spell-check",
-    title: "Ortografía",
-    description: "Corregir ortografía",
+    title: "Orthography",
+    description: "Correct orthography",
     component: <OrthographyPage />
   },
   {
     to: "/pros-cons",
     icon: "fa-solid fa-code-compare",
     title: "Pros & Cons",
-    description: "Comparar pros y contras",
+    description: "Compare pros & cons",
     component: <ProsConsPage />
   },
   {
     to: "/pros-cons-stream",
     icon: "fa-solid fa-water",
-    title: "Como stream",
-    description: "Con stream de mensajes",
+    title: "As stream",
+    description: "As stream of messages",
     component: <ProsConsStreamPage />
   },
   {
     to: "/translate",
     icon: "fa-solid fa-language",
-    title: "Traducir",
-    description: "Textos a otros idiomas",
+    title: "Translate",
+    description: "Translate test to diff languages",
     component: <TranslatePage />
   },
   {
     to: "/text-to-audio",
     icon: "fa-solid fa-podcast",
-    title: "Texto a audio",
-    description: "Convertir texto a audio",
+    title: "Text to audio",
+    description: "Convert text to audio",
     component: <TextToAudioPage />
+  },
+  {
+    to: "/audio-to-text",
+    icon: "fa-solid fa-comment-dots",
+    title: "Audio to text",
+    description: "Convert audio to text",
+    component: <AudioToTextPage />
   },
   {
     to: "/image-generation",
     icon: "fa-solid fa-image",
-    title: "Imágenes",
-    description: "Generar imágenes",
+    title: "Images",
+    description: "Generate images",
     component: <ImageGenerationPage />
   },
   {
     to: "/image-tunning",
     icon: "fa-solid fa-wand-magic",
-    title: "Editar imagen",
-    description: "Generación continua",
+    title: "Edit image",
+    description: "Continuous Generation",
     component: <ImageTunningPage />
-  },
-  {
-    to: "/audio-to-text",
-    icon: "fa-solid fa-comment-dots",
-    title: "Audio a texto",
-    description: "Convertir audio a texto",
-    component: <AudioToTextPage />
   },
   {
     to: "/assistant",
     icon: "fa-solid fa-user",
-    title: "Asistente",
-    description: "Información del asistente",
+    title: "Asistant",
+    description: "Info of the Asistant",
     component: <AssistantPage />
   },
 ];
