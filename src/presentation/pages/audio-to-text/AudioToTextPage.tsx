@@ -19,7 +19,24 @@ export const AudioToTextPage = () => {
     const resp = await audioToTextUseCase(audioFile, text)
 
     if (!resp.ok) setMessages((prevMessages) => [...prevMessages, { text: AUDIO_TO_TEXT_ERROR_RESPONSE.text, isGpt: true }])
-    else setMessages((prevMessages) => [...prevMessages, { text: resp.text, isGpt: true }])
+    else {
+      const gptMessage = `
+## Transcription:
+__Duration:__ ${Math.round(resp.duration)} seconds
+### The transcription text is:
+${resp.text}
+      `
+      setMessages((prevMessages) => [...prevMessages, { text: gptMessage, isGpt: true }])
+
+      for (const segment of resp.segments) {
+        const segmentMessage = `
+__From ${Math.round(segment.start)} to ${Math.round(segment.end)} seconds:__
+${segment.text}
+        `
+
+        setMessages((prevMessages) => [...prevMessages, { text: segmentMessage, isGpt: true }])
+      }
+    }
 
     setIsLoading(false)
 
@@ -38,7 +55,7 @@ export const AudioToTextPage = () => {
           messages.map((message, index) => (
             message.isGpt
               ? <GptMessage key={index} text={message.text} />
-              : <MyMessage key={index} text={message.text} />
+              : <MyMessage key={index} text={message.text.length !== 0 ? message.text : "Transcribing audio file"} />
           ))
         }
 
