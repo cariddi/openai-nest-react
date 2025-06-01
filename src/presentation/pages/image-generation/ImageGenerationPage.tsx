@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { imageGenerationUseCase } from '../../../core/use-cases'
 import type { ImageGenerationInfo } from '../../../interfaces'
 import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
@@ -18,6 +19,10 @@ export const ImageGenerationPage = () => {
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
     // TODO: use case
+    const { ok, revised_prompt, url } = await imageGenerationUseCase(text)
+
+    if (!ok) setMessages((prevMessages) => [...prevMessages, { text: 'Could not generate image', isGpt: true }])
+    else setMessages((prevMessages) => [...prevMessages, { text: url, isGpt: true, info: { alt: revised_prompt, imageUrl: url } }])
 
     setIsLoading(false)
 
@@ -35,7 +40,7 @@ export const ImageGenerationPage = () => {
         {
           messages.map((message, index) => (
             message.isGpt
-              ? <GptMessage key={index} text={"This comes from OpenAI"} />
+              ? <GptMessage key={index} text={message.text} />
               : <MyMessage key={index} text={message.text} />
           ))
         }
