@@ -92,7 +92,7 @@ export const ImageTunningPage = () => {
           >
             <span>Editing</span>
             <img
-              src={originalImagAndMask.original}
+              src={originalImagAndMask.mask ?? originalImagAndMask.original}
               alt='Original Image'
               className='border rounded-xl w-36 h-36 object-cover'
             />
@@ -121,16 +121,11 @@ export const ImageTunningPage = () => {
                       key={index}
                       imageUrl={message.info?.imageUrl}
                       alt={message.info?.alt}
+                      onImageSelected={(maskImageUrl: string) => setoriginalImagAndMask({
+                        original: message.info?.imageUrl,
+                        mask: maskImageUrl
+                      })}
                     />
-                    // <GptMessageImage
-                    //   key={index}
-                    //   imageUrl={message.info?.imageUrl}
-                    //   alt={message.info?.alt}
-                    //   onImageSelected={(imageUrl: string) => setoriginalImagAndMask({
-                    //     original: imageUrl,
-                    //     mask: undefined
-                    //   })}
-                    // />
                   )
                   : <GptMessage key={index} text={message.text} />
                 : <MyMessage key={index} text={message.text} />
