@@ -19,7 +19,7 @@ export const ImageTunningPage = () => {
   const [messages, setMessages] = useState<Message[]>([])
 
   const [originalImagAndMask, setoriginalImagAndMask] = useState<OriginalImagAndMask>({
-    original: 'http://localhost:3000/gpt/image-generation/1748808858010.png',
+    original: undefined,
     mask: undefined
   })
 
@@ -107,7 +107,15 @@ export const ImageTunningPage = () => {
             messages.map((message, index) => (
               message.isGpt
                 ? message.info
-                  ? <GptMessageImage key={index} imageUrl={message.info?.imageUrl} alt={message.info?.alt} />
+                  ? <GptMessageImage
+                    key={index}
+                    imageUrl={message.info?.imageUrl}
+                    alt={message.info?.alt}
+                    onImageSelected={(imageUrl: string) => setoriginalImagAndMask({
+                      original: imageUrl,
+                      mask: undefined
+                    })}
+                  />
                   : <GptMessage key={index} text={message.text} />
                 : <MyMessage key={index} text={message.text} />
             ))
