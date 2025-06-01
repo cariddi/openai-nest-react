@@ -26,8 +26,6 @@ export const imageGenerationUseCase = async (
 		const { revised_prompt, url, openAIUrl }: ImageGenerationResponse =
 			await resp.json();
 
-		console.log({ revised_prompt, url });
-
 		return {
 			url,
 			revised_prompt,

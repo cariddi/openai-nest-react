@@ -1,10 +1,3 @@
-export interface Image {
-	url: string;
-	alt: string;
-}
-
-export type GeneratedImage = Image | null;
-
 export interface ImageGenerationResponse {
 	url: string;
 	openAIUrl: string;
