@@ -5,3 +5,4 @@ export const TRANSLATE_URL = 'translate';
 export const TEXT_TO_AUDIO_URL = 'text-to-audio';
 export const AUDIO_TO_TEXT_URL = 'audio-to-text';
 export const IMAGE_GENERATION_URL = 'image-generation';
+export const IMAGE_VARIATION_URL = 'image-variation';
