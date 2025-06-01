@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { imageGenerationUseCase, imageVariationUseCase } from '../../../core/use-cases'
 import type { ImageGenerationInfo } from '../../../interfaces'
-import { GptMessage, GptMessageImage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
+import { GptMessage, GptMessageSelectableImage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
 interface Message {
   text: string
@@ -16,7 +16,16 @@ interface OriginalImagAndMask {
 
 export const ImageTunningPage = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      isGpt: true,
+      text: 'Base image',
+      info: {
+        alt: 'base image',
+        imageUrl: 'http://localhost:3000/gpt/image-generation/1748817303535.png'
+      }
+    }
+  ])
 
   const [originalImagAndMask, setoriginalImagAndMask] = useState<OriginalImagAndMask>({
     original: undefined,
@@ -107,15 +116,22 @@ export const ImageTunningPage = () => {
             messages.map((message, index) => (
               message.isGpt
                 ? message.info
-                  ? <GptMessageImage
-                    key={index}
-                    imageUrl={message.info?.imageUrl}
-                    alt={message.info?.alt}
-                    onImageSelected={(imageUrl: string) => setoriginalImagAndMask({
-                      original: imageUrl,
-                      mask: undefined
-                    })}
-                  />
+                  ? (
+                    <GptMessageSelectableImage
+                      key={index}
+                      imageUrl={message.info?.imageUrl}
+                      alt={message.info?.alt}
+                    />
+                    // <GptMessageImage
+                    //   key={index}
+                    //   imageUrl={message.info?.imageUrl}
+                    //   alt={message.info?.alt}
+                    //   onImageSelected={(imageUrl: string) => setoriginalImagAndMask({
+                    //     original: imageUrl,
+                    //     mask: undefined
+                    //   })}
+                    // />
+                  )
                   : <GptMessage key={index} text={message.text} />
                 : <MyMessage key={index} text={message.text} />
             ))
