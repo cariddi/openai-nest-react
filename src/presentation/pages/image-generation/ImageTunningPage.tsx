@@ -22,7 +22,7 @@ export const ImageTunningPage = () => {
       text: 'Base image',
       info: {
         alt: 'base image',
-        imageUrl: 'http://localhost:3000/gpt/image-generation/1748817303535.png'
+        imageUrl: 'http://localhost:3000/gpt/image-generation/1748824592736.png'
       }
     }
   ])
@@ -60,8 +60,8 @@ export const ImageTunningPage = () => {
 
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    // TODO: use case
-    const { ok, revised_prompt, url } = await imageGenerationUseCase(text)
+    const { mask, original } = originalImagAndMask
+    const { ok, revised_prompt, url } = await imageGenerationUseCase(text, original, mask)
 
     if (!ok) setMessages((prevMessages) => [...prevMessages, { text: 'Could not generate image', isGpt: true }])
     else setMessages(
@@ -71,16 +71,14 @@ export const ImageTunningPage = () => {
           text,
           isGpt: true,
           info: {
+            imageUrl: url,
             alt: revised_prompt,
-            imageUrl: url
           }
         }
       ]
     )
 
     setIsLoading(false)
-
-    // TODO: add msg of GPT
   }
 
   return (
@@ -122,7 +120,7 @@ export const ImageTunningPage = () => {
                       imageUrl={message.info?.imageUrl}
                       alt={message.info?.alt}
                       onImageSelected={(maskImageUrl: string) => setoriginalImagAndMask({
-                        original: message.info?.imageUrl,
+                        original: message.info?.imageUrl!,
                         mask: maskImageUrl
                       })}
                     />

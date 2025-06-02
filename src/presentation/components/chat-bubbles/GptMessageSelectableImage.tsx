@@ -12,7 +12,7 @@ type Coords = {
   y: number
 }
 
-export const GptMessageSelectableImage: React.FC<GptMessageSelectableImageProps> = ({ text, imageUrl, alt, onImageSelected }) => {
+export const GptMessageSelectableImage: React.FC<GptMessageSelectableImageProps> = ({ imageUrl, onImageSelected }) => {
   const originalImageRef = useRef<HTMLImageElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
