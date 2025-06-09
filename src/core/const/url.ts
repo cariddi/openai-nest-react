@@ -16,3 +16,4 @@ export const IMAGE_VARIATION_URL = 'image-variation';
 
 // ASSISTANT
 export const CREATE_THREAD_URL = 'create-thread';
+export const USER_QUESTION_URL = 'user-question';

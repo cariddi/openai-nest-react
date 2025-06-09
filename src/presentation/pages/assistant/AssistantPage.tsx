@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createThreadUseCase } from '../../../core/use-cases'
+import { createThreadUseCase, postUserQuestionUseCase } from '../../../core/use-cases'
 import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
 interface Message {
@@ -33,11 +33,13 @@ export const AssistantPage = () => {
 
 
   const handlePost = async (text: string) => {
+    if (!threadId) return
+
     setIsLoading(true)
 
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    // TODO: use case
+    const replies = await postUserQuestionUseCase(threadId, text)
 
     setIsLoading(false)
 
