@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PROS_CONS_ERROR_RESPONSE, prosConsUseCase } from '../../../core/use-cases/pros-cons.use-case'
+import { PROS_CONS_ERROR_RESPONSE, prosConsUseCase } from '../../../core/use-cases'
 import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
 interface Message {
