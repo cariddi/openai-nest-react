@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { createThreadUseCase, postUserQuestionUseCase } from '../../../core/use-cases'
+import type { AssistantResponseInfo, QuestionResponse } from '../../../interfaces/assistant.response'
 import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from '../../components'
 
 interface Message {
   text: string
   isGpt: boolean
+  info?: AssistantResponseInfo
 }
 
 export const AssistantPage = () => {
@@ -31,7 +33,6 @@ export const AssistantPage = () => {
     }
   }, [threadId])
 
-
   const handlePost = async (text: string) => {
     if (!threadId) return
 
@@ -39,11 +40,18 @@ export const AssistantPage = () => {
 
     setMessages((prevMessages) => [...prevMessages, { text, isGpt: false }])
 
-    const replies = await postUserQuestionUseCase(threadId, text)
+    const replies: QuestionResponse[] = await postUserQuestionUseCase(threadId, text)
 
     setIsLoading(false)
 
-    // TODO: add msg of GPT
+    for (const reply of replies) {
+      for (const message of reply.content) {
+        setMessages((prev) => [
+          ...prev,
+          { text: message, isGpt: (reply.role === 'assistant'), info: reply }
+        ])
+      }
+    }
   }
 
   return (

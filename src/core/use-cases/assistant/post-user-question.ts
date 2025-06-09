@@ -1,7 +1,4 @@
-import type {
-	AssistantResponse,
-	AssistantResponseWithStatus,
-} from '../../../interfaces/assistant.response';
+import type { QuestionResponse } from '../../../interfaces/assistant.response';
 import { USER_QUESTION_URL } from '../../const/url';
 
 export const postUserQuestionUseCase = async (
@@ -22,13 +19,9 @@ export const postUserQuestionUseCase = async (
 
 		if (!resp.ok) throw new Error('Failed to fetch data from the API');
 
-		const data = (await resp.json()) as AssistantResponse;
-		console.log(data);
+		const replies: QuestionResponse[] = await resp.json();
 
-		return {
-			ok: true,
-			...data,
-		} satisfies AssistantResponseWithStatus;
+		return replies;
 	} catch (error) {
 		console.log({ error });
 
