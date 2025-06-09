@@ -1,8 +1,8 @@
 import type {
 	ProsConsResponse,
 	ProsConsResponseWithStatus,
-} from '../../interfaces';
-import { PROS_CONS_URL } from '../const/url';
+} from '../../../interfaces';
+import { PROS_CONS_URL } from '../../const/url';
 
 export const prosConsUseCase = async (
 	prompt: string

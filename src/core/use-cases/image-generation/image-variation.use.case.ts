@@ -1,8 +1,8 @@
 import type {
 	ImageVariationResponse,
 	ImageVariationResponseWithStatus,
-} from '../../interfaces';
-import { IMAGE_VARIATION_URL } from '../const/url';
+} from '../../../interfaces';
+import { IMAGE_VARIATION_URL } from '../../const/url';
 
 export const imageVariationUseCase = async (
 	baseImage: string

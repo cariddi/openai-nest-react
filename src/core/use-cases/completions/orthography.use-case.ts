@@ -1,8 +1,8 @@
 import type {
 	OrthographyResponse,
 	OrthographyResponseWithStatus,
-} from '../../interfaces';
-import { ORTHOGRAPHY_URL } from '../const/url';
+} from '../../../interfaces';
+import { ORTHOGRAPHY_URL } from '../../const/url';
 
 export const orthographyUseCase = async (
 	prompt: string

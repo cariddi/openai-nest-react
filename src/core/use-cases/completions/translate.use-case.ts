@@ -1,8 +1,8 @@
 import type {
 	TranslateResponse,
 	TranslateResponseWithStatus,
-} from '../../interfaces';
-import { TRANSLATE_URL } from '../const/url';
+} from '../../../interfaces';
+import { TRANSLATE_URL } from '../../const/url';
 
 export const translateUseCase = async (
 	prompt: string,

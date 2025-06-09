@@ -1,5 +1,5 @@
-import type { ProsConsStreamResponseWithStatus } from '../../interfaces';
-import { PROS_CONS_STREAM_URL } from '../const/url';
+import type { ProsConsStreamResponseWithStatus } from '../../../interfaces';
+import { PROS_CONS_STREAM_URL } from '../../const/url';
 
 export const prosConsStreamUseCase = async (prompt: string) => {
 	try {

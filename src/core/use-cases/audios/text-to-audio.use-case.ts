@@ -1,5 +1,5 @@
-import type { TextToAudioResponseWithStatus } from '../../interfaces';
-import { TEXT_TO_AUDIO_URL } from '../const/url';
+import type { TextToAudioResponseWithStatus } from '../../../interfaces';
+import { TEXT_TO_AUDIO_URL } from '../../const/url';
 
 export const textToAudioUseCase = async (
 	prompt: string,

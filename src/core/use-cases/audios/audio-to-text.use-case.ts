@@ -1,8 +1,8 @@
 import type {
 	AudioToTextResponse,
 	AudioToTextResponseWithStatus,
-} from '../../interfaces';
-import { AUDIO_TO_TEXT_URL } from '../const/url';
+} from '../../../interfaces';
+import { AUDIO_TO_TEXT_URL } from '../../const/url';
 
 export const audioToTextUseCase = async (
 	audioFile: File,

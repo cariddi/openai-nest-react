@@ -1,8 +1,8 @@
 import type {
 	ImageGenerationResponse,
 	ImageGenerationResponseWithStatus,
-} from '../../interfaces';
-import { IMAGE_GENERATION_URL } from '../const/url';
+} from '../../../interfaces';
+import { IMAGE_GENERATION_URL } from '../../const/url';
 
 export const imageGenerationUseCase = async (
 	prompt: string,
